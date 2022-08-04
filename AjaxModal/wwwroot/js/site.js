@@ -6,6 +6,11 @@
         $.get(url).done(function (data) {
             placeholderElement.html(data);
             placeholderElement.find('.modal').modal('show');
+            
+            var form = placeholderElement.find('form');
+            form.removeData("validator");
+            form.removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse(form);
         });
     });
 
@@ -15,10 +20,6 @@
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
         var dataToSend = form.serialize();
-
-        $("form").removeData("validator");
-        $("form").removeData("unobtrusiveValidation");
-        $.validator.unobtrusive.parse("form");
         
         $.post(actionUrl, dataToSend).done(function (data) {
             var newBody = $('.modal-body', data);
