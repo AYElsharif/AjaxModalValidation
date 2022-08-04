@@ -16,7 +16,9 @@
         var actionUrl = form.attr('action');
         var dataToSend = form.serialize();
 
-        $.validator.unobtrusive.parse(form);
+        $("form").removeData("validator");
+        $("form").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse("form");
         
         $.post(actionUrl, dataToSend).done(function (data) {
             var newBody = $('.modal-body', data);
